@@ -1,0 +1,10 @@
+﻿Build started 4/10/2018 9:22:51 AM.
+     1>Project "D:\nhap_do_an_2\file_co_dau\file_co_dau.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\nhap_do_an_2\Debug\file_co_dau.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\nhap_do_an_2\Debug\file_co_dau.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\nhap_do_an_2\Debug\file_co_dau.lib" /MACHINE:X86 Debug\file_co_dau.obj
+         file_co_dau.vcxproj -> D:\nhap_do_an_2\Debug\file_co_dau.exe
+     1>Done Building Project "D:\nhap_do_an_2\file_co_dau\file_co_dau.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.21
