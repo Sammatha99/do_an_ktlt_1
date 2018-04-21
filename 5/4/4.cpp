@@ -11,6 +11,7 @@ struct HS{
 	wchar_t *nghanh;
 	int      khoa_hoc;
 	wchar_t *ngay_sinh;
+	wchar_t *image;
 	wchar_t *mo_ta;
 	wchar_t *gmail;
 	wchar_t **so_thich;
@@ -25,6 +26,13 @@ wchar_t *get_data(FILE *file){
 	if (line){
 		int i = 0;
 		while (c != '\n'){
+
+			if (feof(file)){
+				if (line)
+					free(line);
+				return NULL;
+			}
+
 			*(line + i) = c;
 			line = (wchar_t*)realloc(line, (i + 2)*sizeof(wchar_t));
 			c = fgetwc(file);
@@ -32,6 +40,7 @@ wchar_t *get_data(FILE *file){
 		}
 		*(line + i) = '\0';
 	}
+
 	return line;
 }
 
@@ -88,6 +97,8 @@ void tach(wchar_t *nguon, HS &hs){
 	token = wcstok(NULL, s);
 	truyen(token, hs.ngay_sinh);
 
+	token = wcstok(NULL, s);
+	truyen(token, hs.image);
 
 	token = wcstok(NULL, s);
 	truyen(token, hs.mo_ta);
@@ -127,42 +138,49 @@ void main(){
 	_setmode(_fileno(stdout), _O_U16TEXT); //needed for output
 	_setmode(_fileno(stdin), _O_U16TEXT); //needed for input
 	// nhớ chuyển font của console sang Consolas (size 16)
-	HS hs[10];
+	HS *hs;
 	int i = 0;
 	FILE *f = _wfopen(L"5.csv", L"r+,ccs=UTF-16LE");
 
 
 	if (f == NULL)
 		wprintf(L"không mở được file \n");
+
 	else{
 		wprintf(L"đã mở xong file\n");
 
 		wchar_t *line;
 
 		line = get_data(f);
+		if (line != NULL){
+			hs = (HS*)malloc(sizeof(HS));
 
-		while (line != NULL){
-			chuan_hoa(line);
-			tach(line, hs[i]);
+			while (line != NULL){
+				hs = (HS*)realloc(hs, sizeof(HS)*(i+1));
+				chuan_hoa(line);
+				tach(line, hs[i]);
 
 
-			wprintf(L"sau khi tách xong la , thành viên thứ %d\n", i+1);
-			wprintf(L"mssv : %s\ntên : %s\nnghành theo học : %s\nkhóa học hiện tại: %d\nngày sinh : %s\nmô tả : %s\ngmail: %s\n", hs[i].mssv, hs[i].ten, hs[i].nghanh, hs[i].khoa_hoc, hs[i].ngay_sinh, hs[i].mo_ta, hs[i].gmail);
-			if (hs[i].so_thich != NULL){
-				int j = 0;
-				while (hs[i].so_thich[j] != NULL){
-					wprintf(L"-%s\n", hs[i].so_thich[j]);
-					j++;
+				wprintf(L"sau khi tách xong la , thành viên thứ %d\n", i + 1);
+				wprintf(L"mssv : %s\ntên : %s\nnghành theo học : %s\nkhóa học hiện tại: %d\nngày sinh : %s\nhình ảnh : %s\nmô tả : %s\ngmail: %s\n", hs[i].mssv, hs[i].ten, hs[i].nghanh, hs[i].khoa_hoc, hs[i].ngay_sinh,hs[i].image, hs[i].mo_ta, hs[i].gmail);
+				if (hs[i].so_thich != NULL){
+					int j = 0;
+					while (hs[i].so_thich[j] != NULL){
+						wprintf(L"-%s\n", hs[i].so_thich[j]);
+						j++;
+					}
 				}
 
+				else
+					wprintf(L"con mẹ này không có sở thích , thứ nhạt nhẽo :))\n");
+
+				wprintf(L"\n\n\n");
+
+				line = get_data(f);
+				i++;
 			}
-
-			else
-				wprintf(L"con mẹ này không có sở thích , thứ nhạt nhẽo :))\n");
-			wprintf(L"\n\n\n");
-
-			i++;
-			line = get_data(f);
 		}
 	}
+
+	wprintf(L"tổng số lượng sinh viên là : %d", i);
 }

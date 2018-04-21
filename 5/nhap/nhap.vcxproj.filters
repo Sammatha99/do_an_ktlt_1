@@ -19,4 +19,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\4\1212123.htm">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\4\personal.css">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
